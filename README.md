@@ -35,7 +35,7 @@ Web-service with RESTful API that allows to generate a random saying, like or di
   },
   "_links": {
     "self": { "href": "/sayings/{id}" } },
-    "vote": { "href": "/sayings/{id}/vote" },
+    "rate": { "href": "/sayings/{id}/rate" },
     "random": { "href": "/sayings/random" },
     "add": { "href": "/sayings/new" }
   }
@@ -46,11 +46,11 @@ Web-service with RESTful API that allows to generate a random saying, like or di
 **GET**   /sayings/random   HTTP/1.1
 <br/>*Gets random saying.*
 <br/>RESPONSE
-<br/>Same as for **GET**   /sayings/{id}   HTTP/1.1
+<br/>Exactly the same as for request **GET**   /sayings/{id}   HTTP/1.1
 
 
 <br/>**POST**  /sayings/new    HTTP/1.1
-<br/>*Add new saying to system.*
+<br/>*Adds new saying to the system.*
 <br/>Accept: application/json
 <br/>REQUEST BODY
 ```json
@@ -78,14 +78,14 @@ Web-service with RESTful API that allows to generate a random saying, like or di
 ```
 
 
-<br/>**POST**  /sayings/{id}/vote    HTTP/1.1
-<br/>*Like or dislike saying with given id.
-Value of field "vote" shoud be 1 or -1, otherwise "400 Bad request" will be returned.*
+<br/>**POST**  /sayings/{id}/rate    HTTP/1.1
+<br/>*Rate the saying as liked or disliked.
+Value of field "rate" shoud be 1 or -1, otherwise "400 Bad request" will be returned.*
 <br/>Accept: application/json
 <br/>REQUEST BODY
 ```json
 {
-  "vote": 1
+  "rate": 1
 }
 ```
 <br/>RESPONSE
@@ -94,7 +94,8 @@ Value of field "vote" shoud be 1 or -1, otherwise "400 Bad request" will be retu
 
 ### Supported HTTP Status Codes:
 <br/>**200 OK** Successful request.
-<br/>**200 Created** Resourse posted in request was successfully created.
+<br/>**201 Created** Resourse posted in request was successfully created.
+<br/>**204 No Content** The server has fulfilled the request but does not need to return an entity-body.
 <br/>**400 Bad Request** Wrong URI or JSON representation of data.
 <br/>**404 Not found** The requested resource could not be found.
 <br/>**409 Conflict** Same or very similar resourse already exists.
