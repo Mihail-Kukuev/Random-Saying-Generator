@@ -1,0 +1,29 @@
+
+# Created by https://www.gitignore.io/api/intellij+iml,playframework
+
+### Intellij+iml ###
+.idea/*
+out/
+*.iws
+*.iml
+*.ipr
+modules.xml
+
+
+### PlayFramework ###
+# Ignore Play! working directory #
+bin/
+/db
+.eclipse
+/lib/
+/logs/
+/modules
+/project/project
+/project/target
+/target
+tmp/
+test-result
+server.pid
+*.eml
+/dist/
+.cache

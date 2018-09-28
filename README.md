@@ -1,6 +1,15 @@
 # Random Saying Generator
 Web-service with RESTful API that allows to generate a random saying, like or dislike it and add own saying.
 
+## Running
+
+Run this using [sbt](http://www.scala-sbt.org/).
+```
+sbt run
+```
+
+And then go to http://localhost:9000 to see the running web application.
+
 ## API
 **GET**   /sayings   HTTP/1.1 
 <br/>*Main endpoint, from it you can generate random saying or add own.*
@@ -94,10 +103,10 @@ Value of field "rate" shoud be 1 or -1, otherwise "400 Bad request" will be retu
 
 ### Supported HTTP Status Codes:
 <br/>**200 OK** Successful request.
-<br/>**201 Created** Resourse posted in request was successfully created.
+<br/>**201 Created** Resource posted in request was successfully created.
 <br/>**204 No Content** The server has fulfilled the request but does not need to return an entity-body.
 <br/>**400 Bad Request** Wrong URI or JSON representation of data.
 <br/>**404 Not found** The requested resource could not be found.
-<br/>**409 Conflict** Same or very similar resourse already exists.
+<br/>**409 Conflict** Same or very similar resource already exists.
 <br/>**500 Internal Server Error** Unexpected condition was encountered on server and request can't be handled.
 
