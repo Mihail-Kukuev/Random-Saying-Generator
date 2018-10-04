@@ -8,6 +8,7 @@ out/
 *.iml
 *.ipr
 modules.xml
+httpRequests/*
 
 
 ### Gradle ###
