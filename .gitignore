@@ -1,13 +1,18 @@
 
 # Created by https://www.gitignore.io/api/intellij+iml,playframework
 
-### Intellij+iml ###
+### Intellij ###
 .idea/*
 out/
 *.iws
 *.iml
 *.ipr
 modules.xml
+
+
+### Gradle ###
+.gradle
+/build/
 
 
 ### PlayFramework ###

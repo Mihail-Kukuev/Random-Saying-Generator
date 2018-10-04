@@ -3,12 +3,12 @@ Web-service with RESTful API that allows to generate a random saying, like or di
 
 ## Running
 
-Run this using [sbt](http://www.scala-sbt.org/).
+Run this using [gradle](https://gradle.org/).
 ```
-sbt run
+gradlew run
 ```
 
-And then go to http://localhost:9000 to see the running web application.
+And then go to http://localhost:9000/sayings to see the running web application.
 
 ## API
 **GET**   /sayings   HTTP/1.1 
@@ -40,14 +40,13 @@ And then go to http://localhost:9000 to see the running web application.
     "text": "Text of saying",
     "author": "Author",
     "likes": 120,
-    "dislikes": 15,
+    "dislikes": 15
   },
   "_links": {
     "self": { "href": "/sayings/{id}" } },
     "rate": { "href": "/sayings/{id}/rate" },
     "random": { "href": "/sayings/random" },
     "add": { "href": "/sayings/new" }
-  }
 }
 ```
 
@@ -66,7 +65,7 @@ And then go to http://localhost:9000 to see the running web application.
 {
   "saying": {
     "text": "Text of saying",
-    "author": "Author",
+    "author": "Author"
   }
 }
 ```
