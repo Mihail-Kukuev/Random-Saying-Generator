@@ -5,7 +5,14 @@ Web-service with RESTful API that allows to generate a random saying, like or di
 
 Run this using [gradle](https://gradle.org/).
 ```
-gradlew run
+# developing mode
+./gradlew run
+```
+or
+```
+# release mode
+./gradlew dist
+./build/stage/playBinary/bin/playBinary
 ```
 
 And then go to http://localhost:9000/sayings to see the running web application.
