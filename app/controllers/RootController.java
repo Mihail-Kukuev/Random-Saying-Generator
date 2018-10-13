@@ -7,7 +7,7 @@ import play.mvc.*;
 
 public class RootController extends Controller {
 
-    private JsonNode defaultResponse = Json.parse("{\n" +
+    private static JsonNode defaultResponse = Json.parse("{\n" +
             "  \"_links\": {\n" +
             "    \"self\": { \"href\": \"/sayings\" },\n" +
             "    \"random\": { \"href\": \"/sayings/random\" },\n" +
