@@ -1,4 +1,21 @@
+buildscript {
+    ext {
+        cassandraDriverVersion = "3.6.0"
+        playVersion = "2.6.19"
+        scalaVersion = "2.12"
+    }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("com.datastax.cassandra:cassandra-driver-core:$cassandraDriverVersion")
+        classpath("com.typesafe.play:play-guice_$scalaVersion:$playVersion")
+        classpath files('conf')
+    }
+}
+
 plugins {
+    id 'java'
     id 'play'
     id 'idea'
 }
@@ -6,9 +23,6 @@ plugins {
 wrapper {
     gradleVersion = '4.10.2'
 }
-
-def playVersion = "2.6.19"
-def scalaVersion = "2.12"
 
 model {
     components {
@@ -22,6 +36,8 @@ model {
 dependencies {
     play "com.typesafe.play:play-guice_$scalaVersion:$playVersion"
     play "com.typesafe.play:play-logback_$scalaVersion:$playVersion"
+    play "com.datastax.cassandra:cassandra-driver-core:$cassandraDriverVersion"
+    play "com.datastax.cassandra:cassandra-driver-mapping:$cassandraDriverVersion"
 }
 
 repositories {
@@ -44,5 +60,65 @@ idea {
         scopes.COMPILE = [plus: [configurations.play], minus: []]
         scopes.RUNTIME = [plus: [configurations.playRun], minus: [configurations.play]]
         scopes.TEST = [plus: [configurations.playTest], minus: [configurations.playRun]]
+    }
+}
+
+/*task dataStax(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'DataStaxDriver'
+}*/
+
+import com.datastax.driver.core.*
+import com.typesafe.config.*
+
+Config conf = ConfigFactory.load("additional.conf")
+def contactPoint = conf.getString("cassandra.contact-point")
+def port = Integer.valueOf(conf.getString("cassandra.port"))
+
+def createCassandraCluster(String node, int port) {
+    return Cluster.builder().addContactPoint(node).withPort(port).build()
+}
+
+task createSchema {
+    doLast {
+        Cluster cluster = createCassandraCluster(contactPoint, port)
+        Session session = cluster.connect()
+        new File("conf/create.cql").eachLine { line -> session.execute(line) }
+        cluster.close()
+    }
+}
+
+task fillTables {
+    doLast {
+        Cluster cluster = createCassandraCluster(contactPoint, port)
+        Session session = cluster.connect("random_sayings_generator")
+
+        String authorPrefix = "author:"
+        String author
+        def insertContentStatement = session.prepare(
+                "INSERT INTO sayings_content (id, text, author) VALUES (?, ?, ?)")
+        def updateRatingStatement = session.prepare(
+                "UPDATE sayings_rating SET likes = likes + 0, dislikes = dislikes + 0 WHERE id = ?")
+        new File("conf/init_data.txt").eachLine { line ->
+            if (line.startsWith(authorPrefix)) {
+                author = line.substring(authorPrefix.length()).trim()
+            }
+            else if (!line.trim().isEmpty()) {
+                UUID id = UUID.randomUUID()
+                session.execute(insertContentStatement.bind(id, line, author))
+                session.execute(updateRatingStatement.bind(id))
+            }
+        }
+
+        cluster.close()
+    }
+}
+
+task dropSchema {
+    doLast {
+        Cluster cluster = createCassandraCluster(contactPoint, port)
+        Session session = cluster.connect("random_sayings_generator")
+        session.execute("drop keyspace random_sayings_generator")
+        cluster.close()
     }
 }

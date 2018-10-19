@@ -1,9 +1,9 @@
-# Random Saying Generator
-Web-service with RESTful API that allows to generate a random saying, like or dislike it and add own saying.
+# Random model.Saying Generator
+Web-service with RESTful API that allows to generate a random saying, like or dislike it and add own saying (adding a saying is currently unavailable).
+Application uses Play framework and Cassandra as a database.
 
 ## Running
 
-Run this using [gradle](https://gradle.org/).
 ```
 # developing mode
 ./gradlew run
@@ -15,11 +15,23 @@ or
 ./build/stage/playBinary/bin/playBinary
 ```
 
+Database configuration commands:
+```
+# drops existing keyspace with all data
+./gradlew dropSchema
+
+# creates keyspace and necessary tables (just executes commands from "conf/create.cql" file)
+./gradlew createSchema
+
+# fills existing tablies with data from "conf/init_data.txt" file
+./gradlew fillTables
+```
+
 And then go to http://localhost:9000/sayings to see the running web application.
 
 ## API
 **GET**   /sayings   HTTP/1.1 
-<br/>*Main endpoint, from it you can generate random saying or add own.*
+<br/>*controllers.Main endpoint, from it you can generate random saying or add own.*
 <br/>RESPONSE
 <br/>HTTP/1.1 200 OK
 <br/>Content-Type: application/hal+json

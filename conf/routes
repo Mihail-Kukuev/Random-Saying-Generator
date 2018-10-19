@@ -3,7 +3,15 @@
 # ~~~~
 
 # Home page
-GET     /sayings                           controllers.RootController.links
+GET     /sayings                           controllers.MainController.links
+GET     /sayings/random                    controllers.MainController.randomSaying
+GET     /sayings/:id                       controllers.MainController.findSaying(id: String)
+POST    /sayings/:id/rate                  controllers.MainController.rateSaying(id: String)
+
+#GET     /sayings                           controllers.AsyncMainController.links
+#GET     /sayings/random                    controllers.AsyncMainController.randomSaying
+#GET     /sayings/:id                       controllers.AsyncMainController.findSaying(id: String)
+#POST    /sayings/:id/rate                  controllers.AsyncMainController.rateSaying(id: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

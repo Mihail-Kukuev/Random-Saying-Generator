@@ -1,0 +1,17 @@
+103 random
+GET /sayings/random HTTP/1.1
+Host: localhost:9000
+Connection: CloseContent-Type: application/json
+
+103 random
+GET /sayings/random HTTP/1.1
+Host: localhost:9000
+Connection: CloseContent-Type: application/json
+
+172 rate
+POST /sayings/ade19d46-fbc3-4a04-aa50-3200855fc700/rate HTTP/1.1
+Host: localhost:9000
+Connection: CloseContent-Type: application/json
+Content-Length: 11
+
+{"rate": 1}
