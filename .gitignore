@@ -33,3 +33,7 @@ server.pid
 *.eml
 /dist/
 .cache
+
+### load tests ###
+/load-tests/logs/
+/load-tests/token.txt

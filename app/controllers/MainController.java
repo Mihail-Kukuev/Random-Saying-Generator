@@ -57,13 +57,7 @@ public class MainController extends Controller {
     }
 
     boolean success = sayingRepository.rate(UUID.fromString(id), rate);
-
-    if (success) {
-      return noContent();
-    }
-    else {
-      return notFound();
-    }
+    return success ? noContent() : notFound();
   }
 
   private JsonNode prepareSayingResponse(Saying saying) {
