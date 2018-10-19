@@ -46,7 +46,7 @@ def main():
         method, url, case = method.strip(), url.strip(), case.strip()
 
         headers = "Host: localhost:9000\r\n" + \
-            "Connection: Close" + \
+            "Connection: Close\r\n" + \
             "Content-Type: application/json"
 
         sys.stdout.write(make_ammo(method, url, headers, case, body))
