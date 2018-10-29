@@ -23,7 +23,7 @@ def execute_random_id_stmt(session, stmt):
 
 
 def build_rate_request(format, saying_id):
-    sign = '+' if randint(0, 1) else '-'
+    sign = '' if randint(0, 1) else '-'
     return format % (saying_id, sign)
 
 

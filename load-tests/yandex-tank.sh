@@ -3,4 +3,4 @@ docker run \
     -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent \
     --net host \
     -it direvius/yandex-tank
-    --cpuset-cpus="0"
+    --cpus=".2"

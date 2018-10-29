@@ -2,16 +2,19 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET     /sayings                           controllers.MainController.links
-GET     /sayings/random                    controllers.MainController.randomSaying
-GET     /sayings/:id                       controllers.MainController.findSaying(id: String)
-POST    /sayings/:id/rate                  controllers.MainController.rateSaying(id: String)
+#GET     /sayings                           controllers.SayingController.links
+#GET     /sayings/random                    controllers.SayingController.getRandom
+#GET     /sayings/:id                       controllers.SayingController.get(id: String)
+#POST    /sayings/:id/rate                  controllers.SayingController.rate(id: String)
 
-#GET     /sayings                           controllers.AsyncMainController.links
-#GET     /sayings/random                    controllers.AsyncMainController.randomSaying
-#GET     /sayings/:id                       controllers.AsyncMainController.findSaying(id: String)
-#POST    /sayings/:id/rate                  controllers.AsyncMainController.rateSaying(id: String)
+GET     /sayings                           controllers.AsyncSayingController.links
+GET     /sayings/random                    controllers.AsyncSayingController.getRandom
+GET     /sayings/:id                       controllers.AsyncSayingController.get(id: String)
+POST    /sayings/:id/rate                  controllers.AsyncSayingController.rate(id: String)
 
+#GET     /sayings                           controllers.FullyAsyncSayingController.links
+#GET     /sayings/random                    controllers.FullyAsyncSayingController.getRandom
+#GET     /sayings/:id                       controllers.FullyAsyncSayingController.get(id: String)
+#POST    /sayings/:id/rate                  controllers.FullyAsyncSayingController.rate(id: String)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
